@@ -3,10 +3,8 @@ with open("inputs/day_2_input.txt", "r") as f:
 
 reports = [[int(i) for i in line.strip().split(" ")] for line in data]
 
-##### Part 1 #####
-safe_count = 0
 
-for report in reports:
+def is_safe_report(report):
     start_pattern = None
     safe = True
 
@@ -23,10 +21,33 @@ for report in reports:
             safe = False
             break
 
-    if safe:
+    return safe
+
+
+##### Part 1 #####
+safe_count = 0
+for report in reports:
+    if is_safe_report(report):
         safe_count += 1
 
 print(safe_count)
 
-# TODO:
+
 ##### Part 2 #####
+
+# Remove the single bad level & and a bad report
+safe_count2 = 0
+for report in reports:
+    if is_safe_report(report):
+        safe_count2 += 1
+        continue
+
+    for i in range(len(report)):
+        temp_report = report.copy()
+        temp_report.pop(i)
+
+        if is_safe_report(temp_report):
+            safe_count2 += 1
+            break
+
+print(safe_count2)
