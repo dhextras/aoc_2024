@@ -83,6 +83,38 @@ for idx, line in enumerate(lines):
 
 print(xmas_count)
 
+
 ##### Part 2 #####
-# TODO: Do it for each A each check the 4 corners and check it only contains m s then check the proper mas
-# by checking if the single diaganol is corners arent same
+def calc_possible_x_mas(x_index, line_index):
+    line = lines[line_index]
+
+    if (
+        x_index < 1
+        or line_index < 1
+        or len(line) - x_index < 2
+        or len(lines) - line_index < 2
+    ):
+        return 0
+
+    # Check Right diaganol
+    rb = lines[line_index + 1][x_index - 1]
+    ru = lines[line_index - 1][x_index + 1]
+    if rb not in ["M", "S"] or ru not in ["M", "S"] or rb == ru:
+        return 0
+
+    # Check Left diaganol
+    lb = lines[line_index + 1][x_index + 1]
+    lu = lines[line_index - 1][x_index - 1]
+    if lb not in ["M", "S"] or lu not in ["M", "S"] or lb == lu:
+        return 0
+
+    return 1
+
+
+x_mas_count = 0
+for idx, line in enumerate(lines):
+    for jdx, ch in enumerate(line):
+        if ch == "A":
+            x_mas_count += calc_possible_x_mas(jdx, idx)
+
+print(x_mas_count)
