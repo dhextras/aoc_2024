@@ -15,7 +15,7 @@ for i in range(len(data)):
 print(differences)
 
 
-##### Part 1 #####
+##### Part 2 #####
 similarity_score = 0
 sorted_g2_obj = {}
 
